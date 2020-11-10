@@ -16,12 +16,12 @@ cd /compile/source/linux-orangepi
 ./scripts/config -d CONFIG_BLK_DEV_COUNT
 ./scripts/config -d CONFIG_BLK_DEV_SIZE
 
-for i in `cat /compile/doc/orangepi/misc.aw9/options/additional-options-yes.txt`; do
+for i in `cat /compile/doc/orangepi/misc.ah6/options/additional-options-yes.txt`; do
   echo $i
   ./scripts/config -e $i
 done
 
-for i in `cat /compile/doc/orangepi/misc.aw9/options/additional-options-mod.txt`; do
+for i in `cat /compile/doc/orangepi/misc.ah6/options/additional-options-mod.txt`; do
   echo $i
   ./scripts/config -m $i
 done
