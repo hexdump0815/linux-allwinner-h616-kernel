@@ -1,6 +1,9 @@
 # name: -aw9-ah3 + no auto
 # branch: orange-pi-4.9-sun50iw9
 
+# fix allwinner uart compile errors
+patch -p1 < /compile/doc/orangepi/misc/fix-allwinner-uart-compile-errors.patch
+
 cp /compile/doc/orangepi/config.ah3 /compile/source/linux-orangepi/.config
 cd /compile/source/linux-orangepi
 
