@@ -3,6 +3,9 @@
 
 # fix allwinner uart compile errors
 patch -p1 < /compile/doc/orangepi/misc/fix-allwinner-uart-compile-errors.patch
+# add extra and adjusted dts files
+patch -p1 < /compile/doc/orangepi/misc.ah3/add-new-dtbs-to-Makefile.patch
+cp /compile/doc/orangepi/misc.ah3/dts/*.dts arch/arm64/boot/dts/sunxi
 
 cp /compile/doc/orangepi/config.ah3 /compile/source/linux-orangepi/.config
 cd /compile/source/linux-orangepi
