@@ -67,9 +67,8 @@ LABEL v49170
       MENU LABEL linux v4.9.170 kernel
       LINUX ../uImage-4.9.170-aw9-ah3+
       INITRD ../uInitrd-4.9.170-aw9-ah3+
-# the dtb is still coming from u-boot and not read from here
-#      FDT ../dtb-5.9.0-stb-aml+/sun50i-h313-x96q.dtb
-      APPEND earlycon=uart,mmio32,0x5000000 console=tty1 console=ttyS0,115200 root=/dev/mmcblk1p2 rootwait ro fsck.fix=yes fsck.repair=yes net.ifnames=0 ipv6.disable=1 noresume ubootpart=20f7644f-01 disp_reserve=3686400,0xbbf51cc0
+      FDT ../dtb-4.9.170-aw9-ah3+/sun50i-h313-x96q.dtb
+      APPEND earlyprintk=sunxi-uart,0x05000000 earlycon=uart,mmio32,0x5000000 console=tty1 console=ttyS0,115200 root=/dev/mmcblk1p2 rootwait ro fsck.fix=yes fsck.repair=yes net.ifnames=0 ipv6.disable=1 noresume
 
 
 # orange pi zero 2 boot scripts
