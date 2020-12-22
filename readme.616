@@ -10,31 +10,35 @@ patch -p1 < /compile/doc/orangepi/misc.616/patches/fix-allwinner-uart-compile-er
 # add extra and adjusted dts files
 patch -p1 < /compile/doc/orangepi/misc.616/patches/add-new-dtbs-to-Makefile.patch
 cp /compile/doc/orangepi/misc.616/dtb/*.dts arch/arm64/boot/dts/sunxi
+# fix perf compile
+patch -p1 < /compile/doc/orangepi/misc.616/patches/fix-perf-compile.patch
 
 cp /compile/doc/orangepi/config.616 /compile/source/linux-orangepi/.config
 cd /compile/source/linux-orangepi
 
 # git pull --force origin orange-pi-4.9-sun50iw9
 export ARCH=arm64
-# make defconfig
-# /compile/doc/orangepi/misc.h616/options/enable-docker-options.sh
-# /compile/doc/orangepi/misc.h616/options/enable-additional-options.sh
+# no defconfig as it is based on a handcrafted config
+# /compile/doc/orangepi/misc.616/options/enable-docker-options.sh
+# /compile/doc/orangepi/misc.616/options/enable-additional-options.sh
 make oldconfig
 make -j 4 Image dtbs modules
-# cd tools/perf
-# make
-# cd ../power/cpupower
-# make
-# cd ../../..
+cd tools/perf
+# without this it would fail on warnings
+export WERROR=0
+make
+cd ../power/cpupower
+make
+cd ../../..
 export kver=`make kernelrelease`
 echo ${kver}
 # remove debug info if there and wanted
 # find . -type f -name '*.ko' | sudo xargs -n 1 objcopy --strip-unneeded
 make modules_install
-#mkdir -p /lib/modules/${kver}/tools
-#cp -v tools/perf/perf /lib/modules/${kver}/tools
-#cp -v tools/power/cpupower/cpupower /lib/modules/${kver}/tools
-#cp -v tools/power/cpupower/libcpupower.so.0.0.1 /lib/modules/${kver}/tools/libcpupower.so.0
+mkdir -p /lib/modules/${kver}/tools
+cp -v tools/perf/perf /lib/modules/${kver}/tools
+cp -v tools/power/cpupower/cpupower /lib/modules/${kver}/tools
+cp -v tools/power/cpupower/libcpupower.so.0.0.1 /lib/modules/${kver}/tools/libcpupower.so.0
 # make headers_install INSTALL_HDR_PATH=/usr
 cp -v .config /boot/config-${kver}
 cp -v arch/arm64/boot/Image /boot/Image-${kver}
