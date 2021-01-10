@@ -5396,7 +5396,7 @@
 
 		opp@1344000000 {
 			opp-hz = <0x0 0x501bd000>;
-			opp-microvolt = <0x111700>;
+			opp-microvolt = <0x10c8e0>;
 			clock-latency-ns = <0x3b9b0>;
 			opp-supported-hw = <0x4>;
 		};
