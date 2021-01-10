@@ -1,12 +1,14 @@
 /dts-v1/;
 
+// based on the t95 dts and adjusted according to diffs between that and the tx6s android dts
+
 /memreserve/	0x0000000048000000 0x0000000001000000;
 // not sure if the above is required
 / {
 	interrupt-parent = <0x1>;
 	#address-cells = <0x2>;
 	#size-cells = <0x2>;
-	model = "T95 TV Box";
+	model = "TX6S TV Box";
 	compatible = "allwinner,h616", "arm,sun50iw9p1";
 
 	clocks {
@@ -3504,7 +3506,8 @@
 			pinctrl-2 = <0x92>;
 			max-frequency = <0x8f0d180>;
 			bus-width = <0x4>;
-			cd-gpios = <0x53 0x8 0x10 0x6 0x1 0x3 0xffffffff>;
+//			cd-gpios = <0x53 0x8 0x10 0x6 0x1 0x3 0xffffffff>;
+// looks like the sd card change detection does not work
 			cap-sd-highspeed;
 			cap-wait-while-busy;
 			no-sdio;
@@ -3723,6 +3726,14 @@
 			power_io_ctrl = <0x0>;
 			linux,phandle = <0x14d>;
 			phandle = <0x14d>;
+		};
+
+// this is defined in the tx6s dtb
+		fd650 {
+			compatible = "oranth,fd650";
+			fd650_gpio_clk = <0x53 0x8 0xb 0x1 0xffffffff 0xffffffff 0x0>;
+			fd650_gpio_dat = <0x53 0x8 0xc 0x1 0xffffffff 0xffffffff 0x0>;
+			status = "okay";
 		};
 
 		g2d@01480000 {
@@ -4530,13 +4541,14 @@
 // most probably this is opi zero 2 specific
 		};
 
-		leds {
-			compatible = "allwinner,fd655_dev";
-			device_type = "leds";
-			leds_clk = <0x53 0x8 0xb 0x1 0xffffffff 0xffffffff 0x0>;
-			leds_dat = <0x53 0x8 0xc 0x1 0xffffffff 0xffffffff 0x0>;
-			status = "okay";
-		};
+//		leds {
+//			compatible = "allwinner,fd655_dev";
+//			device_type = "leds";
+//			leds_clk = <0x53 0x8 0xb 0x1 0xffffffff 0xffffffff 0x0>;
+//			leds_dat = <0x53 0x8 0xc 0x1 0xffffffff 0xffffffff 0x0>;
+//			status = "okay";
+//		};
+// this is not defined in the tx6s dtb, maye because it does not have an led :)
 
 		product {
 			device_type = "product";
